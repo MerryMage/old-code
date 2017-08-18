@@ -1,0 +1,54 @@
+/*
+Four Rules Test
+ 3 + 4 $$eof
+ 3 * 4 $$eof
+ 3 - 4 $$eof
+ 3 4 $$eof
+Left Recursion Test (should fail to work as desired)
+WARNING: Grammar has left-recursion.
+ $$i $$eof
+Right Recursion Test (infinite space, so cut-off required)
+ $$i * $$i * $$i * $$i [SNIP]
+ $$i * $$i * $$i + $$i [SNIP]
+ $$i * $$i * $$i $$eof
+ $$i * $$i + $$i * $$i [SNIP]
+ $$i * $$i + $$i + $$i [SNIP]
+ $$i * $$i + $$i $$eof
+ $$i * $$i $$eof
+ $$i + $$i * $$i * $$i [SNIP]
+ $$i + $$i * $$i + $$i [SNIP]
+ $$i + $$i * $$i $$eof
+ $$i + $$i + $$i * $$i [SNIP]
+ $$i + $$i + $$i + $$i [SNIP]
+ $$i + $$i + $$i $$eof
+ $$i + $$i $$eof
+ $$i $$eof
+*/
+strict digraph _GRAPH_NAME {
+edge [arrowhead=normal];
+n0 [label="$$BEGIN$$"];
+n0 -> n1;
+n8 [label="$$eof"];
+n1 [label="$$i"];
+n1 -> n2;
+n1 -> n4;
+n1 -> n8;
+n3 [label="$$i"];
+n3 -> n2;
+n3 -> n4;
+n3 -> n8;
+n5 [label="$$i"];
+n5 -> n6;
+n5 -> n4;
+n5 -> n8;
+n7 [label="$$i"];
+n7 -> n6;
+n7 -> n4;
+n7 -> n8;
+n2 [label="*"];
+n2 -> n3;
+n6 [label="*"];
+n6 -> n7;
+n4 [label="+"];
+n4 -> n5;
+}
